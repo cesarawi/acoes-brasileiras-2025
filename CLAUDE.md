@@ -24,6 +24,20 @@ Single-file app (`acoes_2025.py`):
 - **Visualization** — Three sections rendered with Plotly via `st.plotly_chart`: `st.metric` cards (one per stock), a normalized performance line chart (base 100), and a horizontal bar chart for % return comparison.
 - **Interactivity** — Sidebar checkboxes let the user select which stocks to display; all charts and metrics update reactively.
 
+## GitHub
+
+Repositório: https://github.com/cesarawi/acoes-brasileiras-2025
+
+Todo arquivo editado ou criado pelo Claude é automaticamente commitado e publicado no GitHub via hook `PostToolUse` configurado em `.claude/settings.json`. O hook executa `git add -A && git commit -m "auto: update <arquivo>" && git push origin main` após cada operação de escrita.
+
+Para commitar manualmente:
+```bash
+cd D:/claude
+git add -A
+git commit -m "mensagem"
+git push origin main
+```
+
 ## Key notes
 
 - yfinance 1.2.0+ is required — earlier versions fail to resolve Brazilian tickers.
