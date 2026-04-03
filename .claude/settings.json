@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"\nimport sys, json, os, subprocess\ndata = json.load(sys.stdin)\nfile_path = (data.get('tool_input') or {}).get('file_path') or (data.get('tool_response') or {}).get('filePath') or ''\nif not file_path:\n    sys.exit(0)\nnorm = file_path.replace(chr(92), '/')\nproject = 'D:/claude'\nif not norm.lower().startswith(project.lower() + '/') and norm.lower() != project.lower():\n    sys.exit(0)\nbasename = os.path.basename(norm)\nos.chdir(project)\nsubprocess.run(['git', 'add', '-A'], check=True)\nresult = subprocess.run(['git', 'diff', '--cached', '--quiet'])\nif result.returncode == 0:\n    sys.exit(0)\nsubprocess.run(['git', 'commit', '-m', 'auto: update ' + basename], check=True)\nsubprocess.run(['git', 'push', 'origin', 'main'], check=True)\n\" 2>/dev/null || true",
+            "statusMessage": "Sincronizando com GitHub...",
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}
